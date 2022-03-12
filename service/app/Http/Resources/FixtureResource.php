@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SeasonResource extends JsonResource
+class FixtureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,9 @@ class SeasonResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'year' => $this->year,
-            'concluded' => $this->concluded,
-            'fixtures' => FixtureResource::collection($this->whenLoaded('fixtures'))
+            'week' => $this->week,
+            'homeTeam' => TeamResource::make($this->whenLoaded('homeTeam')),
+            'awayTeam' => TeamResource::make($this->whenLoaded('awayTeam'))
         ];
     }
 }
