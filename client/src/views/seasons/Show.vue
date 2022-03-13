@@ -45,7 +45,8 @@ export default {
   components: { Spinner, FixtureList, GroupStats, Fixture },
   computed: {
     seasonId() {
-      return this.$route.params.id;
+      const id = this.$route.params.id;
+      return id == "undefined" ? null : id;
     },
     groupedFixtures() {
       const weeks = {};
@@ -68,17 +69,22 @@ export default {
     return {
       preLoading: true,
       season: null,
+      playing: false,
     };
   },
   methods: {
     async fetchData() {
+      if (!this.seasonId) return;
       const { data } = await show(this.seasonId);
       this.season = data;
       this.preLoading = false;
     },
     async playWeek() {
+      if (this.playing) return;
+      this.playind = true;
       const { data } = await play(this.seasonId);
       this.season = data;
+      this.playing = false;
     },
     async playAllWeeks() {
       while (!this.season.concluded) {
