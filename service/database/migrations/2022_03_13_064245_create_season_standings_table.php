@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('wins')->default(0);
             $table->unsignedTinyInteger('draws')->default(0);
             $table->unsignedTinyInteger('loses')->default(0);
+            $table->float('chance')->default(0);
             $table->timestamps();
         });
 

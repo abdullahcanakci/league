@@ -17,12 +17,14 @@ class SeasonStandingResource extends JsonResource
         return [
             'id' => $this->id,
             'team' => TeamResource::make($this->whenLoaded('team')),
+            'points' => $this->points,
             'plays' => $this->plays,
             'wins' => $this->wins,
             'draws' => $this->draws,
             'loses' => $this->loses,
             'goals' => $this->goals,
-            'goals_conceded' => $this->goals_conceded
+            'goals_conceded' => $this->goals_conceded,
+            'chance' => $this->chance
         ];
     }
 }

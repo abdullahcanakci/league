@@ -22,6 +22,13 @@ class SeasonStanding extends Model
 
     protected $guarded = ['id'];
 
+    /* RELATIONS */
+
+    public function season(): BelongsTo
+    {
+        return $this->belongsTo(Season::class);
+    }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

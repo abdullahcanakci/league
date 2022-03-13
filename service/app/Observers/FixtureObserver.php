@@ -42,5 +42,26 @@ class FixtureObserver
             'wins' => $homeStanding->wins + (($fixture->home_goals > $fixture->away_goals) ? 1 : 0),
             'loses' => $homeStanding->loses + (($fixture->home_goals < $fixture->away_goals) ? 1 : 0),
         ]);
+        /*
+        $season = $fixture->season;
+        $season->refresh();
+         $standings = $season->standings()->orderBy('points', 'desc')->get();
+
+        if ($season->concluded || $standings[0]->points - $standings[1]->points > 18 - $season->week * 3) {
+            // A team is far away that second place wont have chance to catch up to them.
+            $season->standings()->update(['chance' => 0]);
+            $standings[0]->chance = 100;
+            $standings[0]->save();
+        } else {
+            // Calculates if each team has fulfilled their potential points by the current week
+            // And calculates their 
+            info('else');
+            $standings->each(function ($standing) use ($season) {
+                $standing->chance = ($standing->points) / (($season->week - 1) * 3);
+            });
+            $total = $standings->sum('chance');
+            $standings->each(fn ($standing) => $standing->chance = $standing->chance / $total);
+            $standings->each->save();
+        } */
     }
 }

@@ -42,4 +42,46 @@ class Season extends Model
     {
         return $query->where(['concluded' => false]);
     }
+
+    /* HELPERS */
+
+    public function calculateChances()
+    {
+        $standings = $this->standings()->orderBy('points', 'desc')->get();
+        $leader = $standings->first();
+        $remainingPoints = (6 - ($this->week - 1)) * 3;
+
+        if ($this->concluded) {
+            $this->standings()->update(['chance' => 0]);
+            info('concluded');
+            if ($leader->points > $standings[1]->points) {
+                info('first place');
+                $leader->refresh();
+                info($leader);
+                $leader->chance = 100;
+                $leader->save();
+                info($leader);
+            } else {
+                info('shares first place');
+            }
+        } else {
+            // Calculates if each team has fulfilled their potential points by the current week
+            // And calculates their 
+            $standings->each(function ($standing) use ($leader, $remainingPoints) {
+                info(sprintf('leader %s remaining %s standing %s', $leader->points, $remainingPoints, $standing->points));
+                $potentialPoints = $standing->points + $remainingPoints;
+                if ($standing->team_id != $leader->id && $leader->points > $potentialPoints) {
+                    // Team doesnt have any chance to catch up to the leader.
+                    $standing->chance = 0;
+                } else {
+                    // Team has collect most of X% of points
+                    $standing->chance = $potentialPoints / (($this->week - 1) * 3);
+                }
+            });
+            $total = $standings->sum('chance');
+            // Normalize the percentages.
+            $standings->each(fn ($standing) => $standing->chance = number_format(($standing->chance / $total) * 100, 1));
+            $standings->each->save();
+        }
+    }
 }
