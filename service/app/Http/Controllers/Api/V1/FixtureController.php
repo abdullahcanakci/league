@@ -16,14 +16,7 @@ class FixtureController extends Controller
             /** @var Collection */
             $standings = $season->standings()->orderBy('points', 'desc')->get();
 
-            // TODO: move logic into model
-            if ($season->week == 6) {
-                $season->concluded = true;
-                $season->week = null;
-            } else {
-                $season->week = $season->week + 1;
-            }
-            $season->save();
+            $season->advance();
 
             $fixtures->each(
                 function ($fixture) use ($standings) {

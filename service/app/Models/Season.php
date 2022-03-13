@@ -45,6 +45,17 @@ class Season extends Model
 
     /* HELPERS */
 
+    public function advance()
+    {
+        if ($this->week == 6) {
+            $this->concluded = true;
+            $this->week = null;
+        } else {
+            $this->week = $this->week + 1;
+        }
+        $this->save();
+    }
+
     public function calculateChances()
     {
         $standings = $this->standings()->orderBy('points', 'desc')->get();
