@@ -1,43 +1,19 @@
 <template>
-  <ul
-    class="d-flex flex-row gap-2 list-unstyled flex-wrap justify-content-start"
-  >
-    <li
-      class="card list-item rounded-md"
-      style="width: 45%"
-      v-for="group in Object.keys(groupedFixtures)"
-      :key="group"
-    >
-      <span class="bg-black text-white py-1 px-2">Week {{ group }}</span>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          v-for="fixture in groupedFixtures[group]"
-          :key="group"
-        >
-          {{ fixture.homeTeam.name }} - {{ fixture.awayTeam.name }}
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <div>
+    <h2 class="font-semibold">Fixtures</h2>
+    <ul class="flex flex-row flex-wrap gap-4 justify-center mt-4 w-full">
+      <li class="w-full md:w-1/3 lg:w-1/4" v-for="week in Object.keys(fixtures)" :key="week">
+        <fixture :group="fixtures[week]" :week="week" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
+import Fixture from "./Fixture.vue";
 export default {
   props: ["fixtures"],
-
-  computed: {
-    groupedFixtures() {
-      const weeks = {};
-      this.fixtures.forEach((fixture) => {
-        if (!weeks[fixture.week]) {
-          weeks[fixture.week] = [];
-        }
-        weeks[fixture.week].push(fixture);
-      });
-      return weeks;
-    },
-  },
+  components: { Fixture },
 };
 </script>
 

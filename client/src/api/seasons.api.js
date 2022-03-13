@@ -21,3 +21,17 @@ export async function show(id) {
     return { error };
   }
 }
+
+export async function play(id) {
+  try {
+    const { data } = await (
+      await fetch(`http://0.0.0.0:8000/api/v1/seasons/${id}/play`, {
+        method: "POST",
+      })
+    ).json();
+
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+}

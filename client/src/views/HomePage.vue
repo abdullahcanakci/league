@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center h-100">
+  <div class="flex justify-center items-center h-full">
     <div>
       <button class="btn btn-primary" :disabled="loading" @click="createSeason">
         Create a Season <spinner :show="loading" />
