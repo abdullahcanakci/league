@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('year')->default(2022);
+            $table->unsignedTinyInteger('week')->default(1)->nullable();
             $table->boolean('concluded')->default(false);
             $table->timestamps();
         });

@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int season_id
  * @property int home_team_id
  * @property int away_team_id
+ * @property int|null home_goals
+ * @property int|null away_goals
+ * 
  */
 class Fixture extends Model
 {

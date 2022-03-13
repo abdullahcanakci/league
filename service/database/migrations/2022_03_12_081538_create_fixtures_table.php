@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('home_team_id')->constrained('teams');
             $table->foreignId('away_team_id')->constrained('teams');
             $table->unsignedTinyInteger('week');
+            $table->unsignedTinyInteger('home_goals')->nullable();
+            $table->unsignedTinyInteger('away_goals')->nullable();
             $table->timestamps();
         });
     }

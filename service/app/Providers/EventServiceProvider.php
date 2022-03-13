@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Fixture;
 use App\Models\Season;
+use App\Observers\FixtureObserver;
 use App\Observers\SeasonObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -30,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Season::observe(SeasonObserver::class);
+        Fixture::observe(FixtureObserver::class);
     }
 
     /**

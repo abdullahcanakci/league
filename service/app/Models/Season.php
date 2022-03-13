@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * 
  * @property int year
+ * @property int week
  * @property boolean concluded
  * 
  * @method static Builder active()
@@ -28,6 +29,11 @@ class Season extends Model
     public function fixtures(): HasMany
     {
         return $this->hasMany(Fixture::class);
+    }
+
+    public function standings(): HasMany
+    {
+        return $this->hasMany(SeasonStanding::class);
     }
 
     /* SCOPES */

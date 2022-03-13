@@ -12,16 +12,15 @@ class SeasonController extends Controller
 {
     public function show(Season $season)
     {
-        $season->load('fixtures.homeTeam', 'fixtures.awayTeam');
+        $season->load('fixtures.homeTeam', 'fixtures.awayTeam', 'standings.team');
         return SeasonResource::make($season);
     }
 
     public function store()
     {
-        $season = Season::create();
+        $season = Season::create(['concluded' => false]);
 
-        FixtureCreator::create($season, Team::all());
-        $season->load('fixtures.homeTeam', 'fixtures.awayTeam');
+        FixtureCreator::create($season, Team::query()->inRandomOrder()->get());
 
         return SeasonResource::make($season);
     }

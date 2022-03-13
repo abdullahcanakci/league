@@ -89,6 +89,8 @@ class FixtureCreator
                 ])
                 ->save()
         );
+
+        $this->teams->each(fn ($team) => $this->season->standings()->create(['team_id' => $team->id]));
     }
 
     public static function create(Season $season, Collection $teams): Season

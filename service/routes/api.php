@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\FixtureController;
 use App\Http\Controllers\Api\V1\SeasonController;
 use App\Http\Controllers\Api\V1\TeamController;
 use Illuminate\Http\Request;
@@ -19,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('teams', TeamController::class)->only('index');
+    Route::post('seasons/{season}/play', [FixtureController::class, 'playWeek']);
     Route::apiResource('seasons', SeasonController::class)->only('show', 'store');
 });

@@ -3,6 +3,7 @@
 use App\Actions\FixtureCreator;
 use App\Models\Fixture;
 use App\Models\Season;
+use App\Models\SeasonStanding;
 use App\Models\Team;
 
 use function Pest\Laravel\assertDatabaseCount;
@@ -30,4 +31,13 @@ test('no overlapping matches created for any team in week', function () {
         info($weekTeams);
         expect(count($weekTeams))->toBe(count(array_unique($weekTeams)));
     }
+});
+
+test('creates standing models', function () {
+    $teams = Team::factory(4)->create();
+    $season = Season::factory()->create();
+
+    FixtureCreator::create($season, $teams);
+
+    expect(SeasonStanding::count())->toBe(4);
 });

@@ -18,7 +18,9 @@ class FixtureResource extends JsonResource
             'id' => $this->id,
             'week' => $this->week,
             'homeTeam' => TeamResource::make($this->whenLoaded('homeTeam')),
-            'awayTeam' => TeamResource::make($this->whenLoaded('awayTeam'))
+            'awayTeam' => TeamResource::make($this->whenLoaded('awayTeam')),
+            'home_goals' => $this->home_goals,
+            'away_goals' => $this->away_goals
         ];
     }
 }
