@@ -20,6 +20,7 @@ it('shows a season', function () {
     $team = $teams->first();
 
     FixtureCreator::create($season, $teams);
+    $season = Season::find($season->id);
     /** @var \Tests\TestCase $this */
     $this
         ->get(route('seasons.show', ['season' => $season->id]))
